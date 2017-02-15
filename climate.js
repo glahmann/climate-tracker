@@ -2,7 +2,7 @@
 
 var https = require('https');
 var tessel = require('tessel');
-var climatelib = require('bme280');
+var climatelib = require('tessel-bme280');
 var climate = climatelib.use(tessel.port.A);
 
 // set up a loop when climate module is ready
@@ -26,26 +26,26 @@ climate.on('error', function(err) {
 });
 
 // Post the humidity and temperature to my firebase account:
-function postToFireBase(temp, humid) {
-    var req = https.request({
-        port: 443,
-        method: 'POST',
-        hostname: 'FIREBASEACCOUNT.firebaseio.com',
-        path: '/climate.json',
-        headers: {
-            "Host": "FIREBASEACCOUNT.firebaseio.com",
-            "Accept": "*/*",
-            "User-Agent": "tessel"
-        }
-    }, function(res) {
-        console.log('statusCode: ', res.statusCode);
-    });
-
-    req.write('{"datetime": ' + new Date().getTime() + ', "temp": ' + temp + ', "humid": ' + humid + '}');
-    req.write('\r\n');
-    req.end();
-
-    req.on('error', function(e) {
-        console.error(e);
-    });
-}
+// function postToFireBase(temp, humid) {
+//     var req = https.request({
+//         port: 443,
+//         method: 'POST',
+//         hostname: 'FIREBASEACCOUNT.firebaseio.com',
+//         path: '/climate.json',
+//         headers: {
+//             "Host": "FIREBASEACCOUNT.firebaseio.com",
+//             "Accept": "*/*",
+//             "User-Agent": "tessel"
+//         }
+//     }, function(res) {
+//         console.log('statusCode: ', res.statusCode);
+//     });
+//
+//     req.write('{"datetime": ' + new Date().getTime() + ', "temp": ' + temp + ', "humid": ' + humid + '}');
+//     req.write('\r\n');
+//     req.end();
+//
+//     req.on('error', function(e) {
+//         console.error(e);
+//     });
+// }

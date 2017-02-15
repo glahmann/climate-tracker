@@ -22,7 +22,7 @@ board.on("ready", () => {
   var clients = new Set();
   var monitor = new five.Multi({
     controller: "BME280",
-    elevation: 2,
+    elevation: 361,
   });
   var updated = Date.now() - 5000;
 
@@ -44,6 +44,7 @@ board.on("ready", () => {
 
   io.on("connection", socket => {
     // Allow up to 5 monitor sockets to
+
     // connect to this enviro-monitor server
     if (clients.size < 5) {
       clients.add(socket);
